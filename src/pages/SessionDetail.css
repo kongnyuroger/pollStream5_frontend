@@ -1,1 +1,30 @@
-.option-row { display:flex; gap:10px; align-items:center; } .error{ color: var(--danger); font-size: 13px; }"
+.option-row { 
+  display:flex; 
+  gap:10px; 
+  align-items:center; 
+  margin-bottom: 8px;
+}
+.error{ 
+  color: var(--danger); 
+  font-size: 13px; 
+}
+.options-card {
+  margin-top: 16px;
+  padding: 16px;
+  background: #0f121a;
+  border: 1px solid #23283A;
+  border-radius: 12px;
+}
+.options-card h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.results-card {
+  margin-top: 20px;
+  padding: 16px;
+  background: #0f121a;
+  border: 1px solid #23283A;
+  border-radius: 12px;
+}

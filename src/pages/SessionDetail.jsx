@@ -13,6 +13,7 @@ export default function SessionDetail(){
   const [type, setType] = useState('single-choice')
   const [options, setOptions] = useState(['',''])
   const [error, setError] = useState('')
+  const [results, setResults] = useState(null)
 
   const sessionId = useMemo(() => id, [id])
   const { socket, connected } = useSocket(sessionId)
@@ -31,7 +32,6 @@ export default function SessionDetail(){
   useEffect(() => {
     if(!socket) return
     socket.on('pollPublished', (poll) => {
-      // if the poll belongs to this session, reflect status change or add
       if(String(poll.session_id) === String(id)){
         setPolls(prev => {
           const exists = prev.find(p => p.id === poll.id)
@@ -42,7 +42,13 @@ export default function SessionDetail(){
         })
       }
     })
-    return () => { socket?.off('pollPublished') }
+    socket.on('newResponse', (response) => {
+      console.log("New response:", response)
+    })
+    return () => { 
+      socket?.off('pollPublished') 
+      socket?.off('newResponse')
+    }
   }, [socket, id])
 
   function setOptionValue(i, value){
@@ -61,7 +67,7 @@ export default function SessionDetail(){
       if(type !== 'open-ended'){
         payload.options = options.filter(Boolean)
       }
-      const res = await api(`/api/host/sessions/${id}/polls`, { method:'POST', body: payload })
+      await api(`/api/host/sessions/${id}/polls`, { method:'POST', body: payload })
       setQuestion(''); setType('single-choice'); setOptions(['',''])
       await load()
     }catch(err){
@@ -84,7 +90,7 @@ export default function SessionDetail(){
   async function viewResults(pollId){
     try{
       const r = await api(`/api/host/polls/${pollId}/results`)
-      alert(JSON.stringify(r.results, null, 2))
+      setResults(r.results)
     }catch(err){ setError(err.message) }
   }
 
@@ -110,15 +116,15 @@ export default function SessionDetail(){
           </select>
         </div>
         {type !== 'open-ended' && (
-          <div>
-            <label>Options</label>
+          <div className="options-card">
+            <h4>Answer Options</h4>
             {options.map((opt, i) => (
               <div key={i} className="option-row">
-                <input value={opt} onChange={e=>setOptionValue(i, e.target.value)} placeholder={i===0?'Option A': i===1?'Option B':'Option'} />
+                <input value={opt} onChange={e=>setOptionValue(i, e.target.value)} placeholder={`Option ${i + 1}`} />
                 <button className="link" type="button" onClick={()=>removeOption(i)}>remove</button>
               </div>
             ))}
-            <button className="link" type="button" onClick={addOption}>+ add option</button>
+            <button className="link" type="button" onClick={addOption}>+ Add option</button>
           </div>
         )}
         <button>Create poll</button>
@@ -143,6 +149,31 @@ export default function SessionDetail(){
           ))}
         </tbody>
       </table>
+
+      {results && (
+        <div className="results-card">
+          <h3>Results</h3>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Participant</th>
+                <th>Email</th>
+                <th>Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {results.map((r, i) => (
+                <tr key={i}>
+                  <td>{r.participant_name}</td>
+                  <td>{r.email}</td>
+                  <td>{r.option_text || r.response_data}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button onClick={()=>setResults(null)}>Close</button>
+        </div>
+      )}
     </div>
   )
 }

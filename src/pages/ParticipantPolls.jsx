@@ -11,10 +11,16 @@ export default function ParticipantPolls(){
   const [error, setError] = useState('')
   const [participant, setParticipant] = useState(null)
 
-  useEffect(()=>{
-    const p = sessionStorage.getItem('participant')
-    if(p) setParticipant(JSON.parse(p))
-  }, [])
+  useEffect(() => {
+  const p = sessionStorage.getItem('participant');
+  if (p) {
+    setParticipant(JSON.parse(p));
+  } else {
+    // optional: redirect back to join page
+    window.location.assign('/participant');
+  }
+}, []);
+
 
   const sessionId = useMemo(() => session?.session?.sessionId || null, [session])
   const { socket, connected } = useSocket(sessionId)
