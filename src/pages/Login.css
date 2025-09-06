@@ -1,0 +1,5 @@
+.auth-wrap { display:grid; grid-template-columns: 1.2fr 1fr; min-height: 360px; }
+.auth-side { padding: 12px 18px; display:flex; flex-direction:column; gap:6px; }
+.auth-form { background: #0f121a; border:1px solid #23283A; border-radius: 12px; padding: 18px; display:grid; gap:12px; }
+.error { color: var(--danger); font-size: 13px; }
+@media (max-width: 860px){ .auth-wrap{ grid-template-columns:1fr; } }
