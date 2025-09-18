@@ -1,0 +1,14 @@
+.poll .q {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.options {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.error {
+  color: var(--danger);
+  font-size: 13px;
+}

@@ -1,10 +1,10 @@
 import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
-import HostDashboard from "./pages/HostDashboard.jsx";
-import SessionDetail from "./pages/SessionDetail.jsx";
-import ParticipantJoin from "./pages/ParticipantJoin.jsx";
-import ParticipantPolls from "./pages/ParticipantPolls.jsx";
+import Login from "./pages/login/Login.jsx"
+import Register from "./pages/register/Register.jsx";
+import HostDashboard from "./pages/HostDashboard/HostDashboard.jsx";
+import SessionDetail from "./pages/sessiondetail/SessionDetail.jsx";
+import ParticipantJoin from "./pages/participantJoin/ParticipantJoin.jsx";
+import ParticipantPolls from "./pages/participantPolls/ParticipantPolls.jsx";
 export default function App() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");

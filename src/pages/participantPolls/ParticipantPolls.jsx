@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { api } from '../api'
-import { useSocket } from '../hooks/useSocket.js'
+import { api } from '../../api.js'
+import { useSocket } from '../../hooks/useSocket.js'
 import './ParticipantPolls.css'
 
 export default function ParticipantPolls(){

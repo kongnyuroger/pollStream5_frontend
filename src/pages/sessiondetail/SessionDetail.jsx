@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { api } from '../api'
-import StatusBadge from '../components/StatusBadge.jsx'
-import { useSocket } from '../hooks/useSocket.js'
+import { api } from '../../api.js'
+import StatusBadge from '../../components/StatusBadge.jsx'
+import { useSocket } from '../../hooks/useSocket.js'
 import './SessionDetail.css'
 
 export default function SessionDetail(){

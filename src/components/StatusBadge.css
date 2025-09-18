@@ -1,3 +1,9 @@
-.status-draft { border-color:#3a3f54; }
-.status-published { border-color:#2e6fe8; }
-.status-closed { border-color:#9b2c2c; }
+.status-draft {
+  border-color: #3a3f54;
+}
+.status-published {
+  border-color: #2e6fe8;
+}
+.status-closed {
+  border-color: #9b2c2c;
+}
