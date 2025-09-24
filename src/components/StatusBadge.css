@@ -1,9 +1,13 @@
+
 .status-draft {
   border-color: #3a3f54;
+  transition: border-color 0.3s ease;
 }
 .status-published {
   border-color: #2e6fe8;
+  transition: border-color 0.3s ease;
 }
 .status-closed {
   border-color: #9b2c2c;
+  transition: border-color 0.3s ease;
 }

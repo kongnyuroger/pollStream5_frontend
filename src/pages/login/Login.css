@@ -16,10 +16,15 @@
   padding: 18px;
   display: grid;
   gap: 12px;
+  transition: box-shadow 0.3s ease;
+}
+.auth-form:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 .error {
   color: var(--danger);
   font-size: 13px;
+  animation: fadeIn 0.5s ease;
 }
 @media (max-width: 860px) {
   .auth-wrap {

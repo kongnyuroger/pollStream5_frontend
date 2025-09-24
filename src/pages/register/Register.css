@@ -1,8 +1,10 @@
 .ok {
   color: #29c173;
   font-size: 13px;
+  animation: fadeIn 0.5s ease;
 }
 .error {
   color: var(--danger);
   font-size: 13px;
+  animation: fadeIn 0.5s ease;
 }

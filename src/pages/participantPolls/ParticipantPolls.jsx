@@ -22,7 +22,8 @@ export default function ParticipantPolls(){
 }, []);
 
 
-  const sessionId = useMemo(() => session?.session?.sessionId || null, [session])
+  const sessionId = useMemo(() => session?.session?.id || null, [session])
+  console.log(`session id form particpant page is ${sessionId}`)
   const { socket, connected } = useSocket(sessionId)
 
   async function load(){
@@ -38,6 +39,7 @@ export default function ParticipantPolls(){
   useEffect(() => {
     if(!socket) return
     socket.on('pollPublished', (poll) => {
+      console.log("pollPublished")
       setPolls(prev => {
         // only add if not present and status published
         const exists = prev.find(p => p.id === poll.id)

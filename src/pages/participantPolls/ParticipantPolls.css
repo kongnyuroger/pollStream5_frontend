@@ -11,4 +11,10 @@
 .error {
   color: var(--danger);
   font-size: 13px;
+  animation: fadeIn 0.5s ease;
+}
+@media (max-width: 768px) {
+  .options {
+    grid-template-columns: 1fr;
+  }
 }

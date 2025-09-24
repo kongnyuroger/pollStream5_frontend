@@ -32,6 +32,10 @@ button {
     padding: 10px 14px;
     background: var(--accent);
     color: white;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #3a75e8;
 }
 input,
 select,
@@ -43,6 +47,12 @@ textarea {
     border: 1px solid #242938;
     border-radius: 12px;
     outline: none;
+    transition: border-color 0.3s ease;
+}
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent);
 }
 .container {
     max-width: 1000px;
@@ -55,6 +65,10 @@ textarea {
     border-radius: 16px;
     padding: 18px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.3s ease;
+}
+.card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 .row {
     display: grid;
@@ -79,11 +93,16 @@ textarea {
     font-weight: 900;
     letter-spacing: 0.6px;
     font-size: 30px;
+    animation: fadeIn 0.5s ease;
 }
 .header nav a {
     margin-right: 16px;
     color: var(--muted);
     font-size: 19px;
+    transition: color 0.3s ease;
+}
+.header nav a:hover {
+    color: var(--text);
 }
 .header nav a.active {
     color: var(--text);
@@ -98,86 +117,6 @@ textarea {
     border-bottom: 1px solid #23283A;
     text-align: left;
 }
-/* ---------------- Home Page ---------------- */
-.home-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0B0D12, #242938);
-    padding: 2rem;
-}
-.home-card {
-    background: #10141F;
-    border: 1px solid #242938;
-    border-radius: 16px;
-    padding: 2.5rem;
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
-    color: #E4E6EB;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-.home-title {
-    font-size: 2rem;
-    font-weight: 900;
-    margin-bottom: 1rem;
-    color: #FFFFFF;
-}
-.home-subtitle {
-    font-size: 1rem;
-    color: #B0B3B8;
-    margin-bottom: 2rem;
-}
-.home-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 2rem 0;
-    text-align: left;
-}
-.home-list li {
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-.kbd {
-    background: #0B0D12;
-    border: 1px solid #242938;
-    border-radius: 6px;
-    padding: 2px 6px;
-    font-size: 0.85rem;
-    font-family: monospace;
-    color: #F1F1F1;
-}
-.home-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-}
-.btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 900;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-.btn.primary {
-    background: #1E40AF;
-    color: white;
-}
-.btn.primary:hover {
-    background: #1D4ED8;
-    transform: translateY(-2px);
-}
-.btn.secondary {
-    background: #242938;
-    color: #F1F1F1;
-}
-.btn.secondary:hover {
-    background: #32384D;
-    transform: translateY(-2px);
-}
-/* ---------------- Shared ---------------- */
 .badge {
     padding: 4px 10px;
     border-radius: 999px;
@@ -185,6 +124,10 @@ textarea {
     border: 1px solid #242938;
     color: var(--muted);
     font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+.badge:hover {
+    background-color: var(--panel);
 }
 .actions {
     display: flex;
@@ -206,6 +149,10 @@ label {
     color: var(--accent);
     padding: 0;
     font-size: 18px;
+    transition: color 0.3s ease;
+}
+.link:hover {
+    color: #3a75e8;
 }
 hr {
     border: none;
@@ -244,38 +191,17 @@ hr {
     .row.grid-2 {
         grid-template-columns: 1fr;
     }
-    .home-card {
-        padding: 1.5rem;
-    }
-    .home-title {
-        font-size: 1.6rem;
-    }
-    .home-subtitle {
-        font-size: 0.95rem;
-    }
-    .home-list li {
-        font-size: 0.9rem;
-    }
-    .home-actions {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    .btn {
-        width: 100%;
-        padding: 0.85rem;
-    }
 }
 @media (max-width: 480px) {
     .header .brand {
         font-size: 20px;
     }
-    .home-title {
-        font-size: 1.4rem;
-    }
-    .home-subtitle {
-        font-size: 0.9rem;
-    }
-    .home-list {
-        text-align: center;
-    }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

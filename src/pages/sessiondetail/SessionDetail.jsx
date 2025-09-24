@@ -16,6 +16,7 @@ export default function SessionDetail(){
   const [results, setResults] = useState(null)
 
   const sessionId = useMemo(() => id, [id])
+  console.log(`session id form sessiondetail page is ${sessionId}`)
   const { socket, connected } = useSocket(sessionId)
 
   async function load(){
@@ -29,27 +30,23 @@ export default function SessionDetail(){
   }
   useEffect(()=>{ load() }, [id])
 
-  useEffect(() => {
-    if(!socket) return
-    socket.on('pollPublished', (poll) => {
-      if(String(poll.session_id) === String(id)){
-        setPolls(prev => {
-          const exists = prev.find(p => p.id === poll.id)
-          if(exists){
-            return prev.map(p => p.id === poll.id ? { ...poll, status: 'published' } : p)
-          }
-          return [...prev, poll]
-        })
-      }
-    })
-    socket.on('newResponse', (response) => {
-      console.log("New response:", response)
-    })
-    return () => { 
-      socket?.off('pollPublished') 
-      socket?.off('newResponse')
+ useEffect(() => {
+  if(!socket) return
+  socket.on('pollPublished', (poll) => {
+    if(String(poll.session_id) === String(id)){
+      setPolls(prev => {
+        const exists = prev.find(p => p.id === poll.id)
+        if(exists){
+          return prev.map(p => p.id === poll.id ? { ...poll, status: 'published' } : p)
+        }
+        return [...prev, poll]
+      })
     }
-  }, [socket, id])
+  })
+  return () => { 
+    socket?.off('pollPublished') 
+  }
+}, [socket, id])
 
   function setOptionValue(i, value){
     const copy = [...options]; copy[i] = value; setOptions(copy)
@@ -166,7 +163,7 @@ export default function SessionDetail(){
                 <tr key={i}>
                   <td>{r.participant_name}</td>
                   <td>{r.email}</td>
-                  <td>{r.option_text || r.response_data}</td>
+                  <td>{ r.response_data || r.option_text}</td>
                 </tr>
               ))}
             </tbody>
