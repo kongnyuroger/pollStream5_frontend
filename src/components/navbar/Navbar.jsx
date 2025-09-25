@@ -1,27 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container container">
-        <NavLink to="/" className="navbar-brand">
+        <NavLink to="/" className="navbar-brand" onClick={closeMenu}>
           PollPulse
         </NavLink>
-        <ul className="navbar-nav">
+        <button className="navbar-toggle" onClick={toggleMenu}>
+          {isMenuOpen ? 'Close' : 'Menu'}
+        </button>
+        <ul className={`navbar-nav ${isMenuOpen ? 'open' : 'close'}`}>
           <li className="nav-item">
             <NavLink
               to="/"
               className={({ isActive }) => (isActive ? 'active' : '')}
+              onClick={closeMenu}
             >
               Home
             </NavLink>
@@ -30,6 +45,7 @@ const Navbar = () => {
             <NavLink
               to="/host"
               className={({ isActive }) => (isActive ? 'active' : '')}
+              onClick={closeMenu}
             >
               Host
             </NavLink>
@@ -38,6 +54,7 @@ const Navbar = () => {
             <NavLink
               to="/participant"
               className={({ isActive }) => (isActive ? 'active' : '')}
+              onClick={closeMenu}
             >
               Participant
             </NavLink>

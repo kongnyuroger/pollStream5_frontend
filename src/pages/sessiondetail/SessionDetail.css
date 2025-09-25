@@ -75,3 +75,12 @@
   border: 1px solid #23283A;
   border-radius: 12px;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

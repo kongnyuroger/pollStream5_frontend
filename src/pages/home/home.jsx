@@ -27,8 +27,8 @@ const Home = () => {
           </div>
         </div>
         <div className="home-cta">
-          <a href="/create-session" className="cta-button">Create a Session</a>
-          <a href="/join-session" className="cta-button">Join a Session</a>
+          <a href="/host" className="cta-button">Create a Session</a>
+          <a href="/participant" className="cta-button">Join a Session</a>
         </div>
       </main>
       <footer className="home-footer">
