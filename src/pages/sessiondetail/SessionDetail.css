@@ -1,86 +1,197 @@
-.option-row { 
-  display:flex; 
-  gap:10px; 
-  align-items:center; 
-  margin-bottom: 8px;
-}
-.error{ 
-  color: var(--danger); 
-  font-size: 13px; 
-}
-.options-card {
-  margin-top: 16px;.option-row { 
-  display: flex; 
-  gap: 10px; 
-  align-items: center; 
-  margin-bottom: 8px;
-  transition: transform 0.3s ease;
-}
-.option-row:hover {
-  transform: scale(1.05);
-}
-.error { 
-  color: var(--danger); 
-  font-size: 13px; 
-  animation: fadeIn 0.5s ease;
-}
-.options-card {
-  margin-top: 16px;
-  padding: 16px;
-  background: #0f121a;
-  border: 1px solid #23283a;
-  border-radius: 12px;
-  transition: box-shadow 0.3s ease;
-}
-.options-card:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-}
-.options-card h4 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--muted);
-}
-.results-card {
-  margin-top: 20px;
-  padding: 16px;
-  background: #0f121a;
-  border: 1px solid #23283a;
-  border-radius: 12px;
-  transition: box-shadow 0.3s ease;
-}
-.results-card:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-}
-@media (max-width: 768px) {
-  .option-row {
-    flex-direction: column;
-  }
-}
-  padding: 16px;
-  background: #0f121a;
-  border: 1px solid #23283A;
-  border-radius: 12px;
-}
-.options-card h4 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--muted);
-}
-.results-card {
-  margin-top: 20px;
-  padding: 16px;
-  background: #0f121a;
-  border: 1px solid #23283A;
-  border-radius: 12px;
+:root {
+  --bg: #0E0F13;
+  --panel: #151821;
+  --muted: #8A90A2;
+  --text: #E9ECF1;
+  --accent: #4C8BF5;
+  --danger: #E34F4F;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
+.session-detail {
+  padding: 16px;
+  margin: 0 auto;
+  max-width: 100%;
+  background: var(--panel);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.badge {
+  background-color: var(--muted);
+  color: var(--text);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.polls {
+  margin-top: 24px;
+}
+
+.poll-card {
+  background-color: var(--bg);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.poll-card h4 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.poll-card p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.poll-card .actions {
+  margin-top: 8px;
+}
+
+.poll-card .actions button {
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.poll-card .actions button:hover {
+  text-decoration: underline;
+}
+
+.results-card {
+  background-color: var(--bg);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.results-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--muted);
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.result-item span {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.form {
+  margin-top: 24px;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.form input,
+.form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--muted);
+  background-color: var(--bg);
+  color: var(--text);
+  margin-top: 1rem;
+}
+
+.form input:focus,
+.form select:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.form button {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--accent);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #3a75e8;
+  color: white;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .session-detail {
+    padding: 12px;
   }
-  to {
-    opacity: 1;
+
+  .poll-card,
+  .results-card {
+    padding: 12px;
+  }
+
+  .result-item {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .session-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge {
+    margin-top: 8px;
+  }
+
+  .poll-card h4 {
+    font-size: 16px;
+  }
+
+  .result-item {
+    font-size: 12px;
+  }
+
+  .form input,
+  .form select {
+    font-size: 12px;
+  }
+
+  .form button {
+    font-size: 12px;
   }
 }

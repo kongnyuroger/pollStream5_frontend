@@ -71,7 +71,6 @@ const Navbar = () => {
               Register
             </button>
           )}
-          {token && <span className="small">Signed in</span>}
           {token && <button className="action-button" onClick={logout}>Logout</button>}
         </div>
       </div>
