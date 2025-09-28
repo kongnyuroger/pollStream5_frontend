@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { api } from '../../api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import './ParticipantJoin.css'
 
 export default function ParticipantJoin(){
@@ -9,15 +9,23 @@ export default function ParticipantJoin(){
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
+  // Autofill code from query param
+  useEffect(() => {
+    const prefill = searchParams.get('code')
+    if (prefill) setCode(prefill.toUpperCase())
+  }, [searchParams])
 
   async function join(e){
     e.preventDefault()
     setError('')
     try{
-      // Verify session exists
       await api(`/api/participant/sessions/${code}`)
-      const res = await api(`/api/participant/sessions/${code}/join`, { method:'POST', body:{ name, email } })
-      // store participant+session in sessionStorage for this client
+      const res = await api(`/api/participant/sessions/${code}/join`, { 
+        method:'POST', 
+        body:{ name, email } 
+      })
       sessionStorage.setItem('participant', JSON.stringify(res))
       navigate(`/participant/${code}`)
     }catch(err){
@@ -31,7 +39,12 @@ export default function ParticipantJoin(){
       <form className="form" onSubmit={join}>
         <div>
           <label>Session Code</label>
-          <input value={code} onChange={e=>setCode(e.target.value.toUpperCase())} placeholder="e.g., 7H2KQX" required />
+          <input 
+            value={code} 
+            onChange={e=>setCode(e.target.value.toUpperCase())} 
+            placeholder="e.g., 7H2KQX" 
+            required 
+          />
         </div>
         <div className="row grid-2">
           <div>
@@ -49,4 +62,3 @@ export default function ParticipantJoin(){
     </div>
   )
 }
-

@@ -23,6 +23,10 @@
   margin-bottom: 16px;
 }
 
+.join-link{
+  color: #4C8BF5;
+}
+
 .badge {
   background-color: var(--muted);
   color: var(--text);

@@ -1,18 +1,19 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { api } from '../../api.js';
-import StatusBadge from '../../components/StatusBadge.jsx';
-import { useSocket } from '../../hooks/useSocket.js';
-import './SessionDetail.css';
+import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { api } from "../../api.js";
+import StatusBadge from "../../components/StatusBadge.jsx";
+import { useSocket } from "../../hooks/useSocket.js";
+import { Link } from "react-router-dom";
+import "./SessionDetail.css";
 
 export default function SessionDetail() {
   const { id } = useParams();
   const [session, setSession] = useState(null);
   const [polls, setPolls] = useState([]);
-  const [question, setQuestion] = useState('');
-  const [type, setType] = useState('single-choice');
-  const [options, setOptions] = useState(['', '']);
-  const [error, setError] = useState('');
+  const [question, setQuestion] = useState("");
+  const [type, setType] = useState("single-choice");
+  const [options, setOptions] = useState(["", ""]);
+  const [error, setError] = useState("");
   const [results, setResults] = useState(null);
   const [selectedPollId, setSelectedPollId] = useState(null);
 
@@ -36,19 +37,21 @@ export default function SessionDetail() {
 
   useEffect(() => {
     if (!socket) return;
-    socket.on('pollPublished', (poll) => {
+    socket.on("pollPublished", (poll) => {
       if (String(poll.session_id) === String(id)) {
         setPolls((prev) => {
           const exists = prev.find((p) => p.id === poll.id);
           if (exists) {
-            return prev.map((p) => (p.id === poll.id ? { ...poll, status: 'published' } : p));
+            return prev.map((p) =>
+              p.id === poll.id ? { ...poll, status: "published" } : p
+            );
           }
           return [...prev, poll];
         });
       }
     });
     return () => {
-      socket?.off('pollPublished');
+      socket?.off("pollPublished");
     };
   }, [socket, id]);
 
@@ -57,9 +60,9 @@ export default function SessionDetail() {
     copy[i] = value;
     setOptions(copy);
   }
-  
+
   function addOption() {
-    setOptions((o) => [...o, '']);
+    setOptions((o) => [...o, ""]);
   }
 
   function removeOption(i) {
@@ -70,13 +73,16 @@ export default function SessionDetail() {
     e.preventDefault();
     try {
       const payload = { question, type };
-      if (type !== 'open-ended') {
+      if (type !== "open-ended") {
         payload.options = options.filter(Boolean);
       }
-      await api(`/api/host/sessions/${id}/polls`, { method: 'POST', body: payload });
-      setQuestion('');
-      setType('single-choice');
-      setOptions(['', '']);
+      await api(`/api/host/sessions/${id}/polls`, {
+        method: "POST",
+        body: payload,
+      });
+      setQuestion("");
+      setType("single-choice");
+      setOptions(["", ""]);
       await load();
     } catch (err) {
       setError(err.message);
@@ -85,7 +91,7 @@ export default function SessionDetail() {
 
   async function publish(pollId) {
     try {
-      await api(`/api/host/polls/${pollId}/publish`, { method: 'PUT' });
+      await api(`/api/host/polls/${pollId}/publish`, { method: "PUT" });
       await load();
     } catch (err) {
       setError(err.message);
@@ -94,7 +100,7 @@ export default function SessionDetail() {
 
   async function close(pollId) {
     try {
-      await api(`/api/host/polls/${pollId}/close`, { method: 'PUT' });
+      await api(`/api/host/polls/${pollId}/close`, { method: "PUT" });
       await load();
     } catch (err) {
       setError(err.message);
@@ -105,7 +111,7 @@ export default function SessionDetail() {
     try {
       const r = await api(`/api/host/polls/${pollId}/results`);
       setResults(r.results);
-      console.log(r.results)
+      console.log(r.results);
       setSelectedPollId(pollId);
     } catch (err) {
       setError(err.message);
@@ -119,8 +125,16 @@ export default function SessionDetail() {
       <div className="session-header">
         <h2>Session: {session.name}</h2>
         <span className="badge">code: {session.session_code}</span>
+
+        {/* New link to participant join */}
+        <Link
+          to={`/participant?code=${session.session_code}`}
+          className="join-link"
+        >
+          Invite Participants
+        </Link>
       </div>
-      
+
       <hr />
       <div className="create-poll">
         <h3>Create Poll</h3>
@@ -142,7 +156,7 @@ export default function SessionDetail() {
               <option value="open-ended">Open ended</option>
             </select>
           </div>
-          {type !== 'open-ended' && (
+          {type !== "open-ended" && (
             <div className="options-card">
               <h4>Answer Options</h4>
               {options.map((opt, i) => (
@@ -152,7 +166,11 @@ export default function SessionDetail() {
                     onChange={(e) => setOptionValue(i, e.target.value)}
                     placeholder={`Option ${i + 1}`}
                   />
-                  <button className="link" type="button" onClick={() => removeOption(i)}>
+                  <button
+                    className="link"
+                    type="button"
+                    onClick={() => removeOption(i)}
+                  >
                     remove
                   </button>
                 </div>
@@ -173,10 +191,16 @@ export default function SessionDetail() {
           <div key={p.id} className="poll-card">
             <h4>{p.question}</h4>
             <p>Type: {p.type}</p>
-            <p>Status: <StatusBadge status={p.status} /></p>
+            <p>
+              Status: <StatusBadge status={p.status} />
+            </p>
             <div className="actions">
-              {p.status === 'draft' && <button onClick={() => publish(p.id)}>Publish</button>}
-              {p.status === 'published' && <button onClick={() => close(p.id)}>Close</button>}
+              {p.status === "draft" && (
+                <button onClick={() => publish(p.id)}>Publish</button>
+              )}
+              {p.status === "published" && (
+                <button onClick={() => close(p.id)}>Close</button>
+              )}
               <button className="link" onClick={() => viewResults(p.id)}>
                 Results
               </button>
