@@ -1,3 +1,6 @@
+/* =========================
+   NAVBAR BASE STYLES
+   ========================= */
 .navbar {
   background: var(--panel);
   border-bottom: 1px solid #212637;
@@ -14,7 +17,7 @@
 }
 
 .navbar-brand {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 900;
   color: var(--accent);
   text-decoration: none;
@@ -25,10 +28,13 @@
   color: #3a75e8;
 }
 
+/* =========================
+   NAV LINKS (DESKTOP)
+   ========================= */
 .navbar-nav {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   z-index: 500;
   transition: all 0.3s ease;
 }
@@ -38,21 +44,28 @@
 }
 
 .nav-link {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text);
   text-decoration: none;
-  transition: color 0.3s ease;
-  padding: 0.5rem;
-}
-
-.nav-link.active {
-  text-decoration: underline;
+  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
 }
 
 .nav-link:hover {
   color: var(--accent);
+  transform: translateY(-2px);
 }
 
+.nav-link.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* =========================
+   ACTION BUTTONS
+   ========================= */
 .navbar-actions {
   display: flex;
   gap: 0.5rem;
@@ -64,56 +77,96 @@
   color: white;
   text-decoration: none;
   border-radius: 12px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .action-button:hover {
   background-color: #3a75e8;
+  transform: scale(1.05);
 }
 
+/* =========================
+   TOGGLE BUTTON (MOBILE)
+   ========================= */
 .navbar-toggle {
   display: none;
   background: none;
   border: none;
   color: var(--text);
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
-@media (max-width: 426px) {
+/* =========================
+   BACKDROP OVERLAY
+   ========================= */
+.navbar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* =========================
+   MOBILE STYLES
+   ========================= */
+@media (max-width: 430px) {
   .navbar-toggle {
     display: block;
   }
 
+  /* Side navigation */
   .navbar-nav {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
-    right: 0;
+    height: 100vh;
+    width: 55%; /* reduced width */
+    max-width: 220px;
     background: var(--panel);
-    border-bottom: 1px solid #212637;
+    border-right: 1px solid #212637;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
+    gap: 1rem;
+    padding: 2rem 1rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1500;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
   }
 
   .navbar-nav.open {
-    transform: translateY(0);
+    transform: translateX(0);
   }
+
   .navbar-nav.close {
-    display: none;
+    transform: translateX(-100%);
   }
 
   .nav-item {
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
 
   .nav-link {
     display: block;
     width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+  }
+
+  .nav-link.active {
+    background: var(--accent);
+    color: #fff;
   }
 
   .navbar-actions {

@@ -46,7 +46,7 @@ export default function Login(){
         </div>
         {error && <div className="error">{error}</div>}
         <button disabled={loading}>{loading ? 'Signing in...' : 'Login'}</button>
-        <button className="link" type="button" onClick={()=>window.location.assign('/register')}>Create an account</button>
+        <p className="link login" type="button" onClick={()=>window.location.assign('/register')}>Create an account</p>
       </form>
     </div>
   )

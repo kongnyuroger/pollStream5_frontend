@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { api } from '../../api'
+import { Link } from 'react-router-dom'
 import './Register.css'
 
 export default function Register(){
@@ -38,6 +39,7 @@ export default function Register(){
         </div>
         {error && <div className="error">{error}</div>}
         {ok && <div className="ok">{ok}</div>}
+        <p>i have an acount. <a className='link' href="/login">login</a> </p>
         <button>Create account</button>
       </form>
     </div>

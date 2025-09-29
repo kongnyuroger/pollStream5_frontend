@@ -170,7 +170,7 @@ export default function SessionDetail() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               required
-              placeholder="What should we build next?"
+              placeholder="input poll"
             />
           </div>
           <div>

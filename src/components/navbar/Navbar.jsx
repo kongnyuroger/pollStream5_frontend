@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import './Navbar.css';
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const logout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   const toggleMenu = () => {
@@ -28,50 +28,80 @@ const Navbar = () => {
         <NavLink to="/" className="navbar-brand" onClick={closeMenu}>
           PollPulse
         </NavLink>
+
+        {/* Mobile toggle */}
         <button className="navbar-toggle" onClick={toggleMenu}>
-          {isMenuOpen ? 'Close' : 'Menu'}
+          {isMenuOpen ? "Close" : "Menu"}
         </button>
-        <ul className={`navbar-nav ${isMenuOpen ? 'open' : 'close'}`}>
+
+        {/* Nav links */}
+        <ul className={`navbar-nav ${isMenuOpen ? "open" : "close"}`}>
           <li className="nav-item">
             <NavLink
               to="/"
-              className={({ isActive }) => (isActive ? 'active' : '')}
+              end
+              className={({ isActive }) =>
+                `nav-link ${isActive ? "active" : ""}`
+              }
               onClick={closeMenu}
             >
               Home
             </NavLink>
           </li>
+
           <li className="nav-item">
             <NavLink
               to="/host"
-              className={({ isActive }) => (isActive ? 'active' : '')}
+              className={({ isActive }) =>
+                `nav-link ${isActive ? "active" : ""}`
+              }
               onClick={closeMenu}
             >
               Host
             </NavLink>
           </li>
+
           <li className="nav-item">
             <NavLink
               to="/participant"
-              className={({ isActive }) => (isActive ? 'active' : '')}
+              className={({ isActive }) =>
+                `nav-link ${isActive ? "active" : ""}`
+              }
               onClick={closeMenu}
             >
               Participant
             </NavLink>
           </li>
         </ul>
+
+        {/* Overlay */}
+        {isMenuOpen && (
+          <div className="navbar-backdrop" onClick={closeMenu}></div>
+        )}
+
+        {/* Actions */}
         <div className="navbar-actions">
           {!token && (
-            <button className="action-button" onClick={() => navigate('/login')}>
+            <button
+              className="action-button"
+              onClick={() => navigate("/login")}
+            >
               Login
             </button>
           )}
           {!token && (
-            <button className="action-button" onClick={() => navigate('/register')}>
+            <button
+              className="action-button"
+              onClick={() => navigate("/register")}
+            >
               Register
             </button>
           )}
-          {token && <button className="action-button" onClick={logout}>Logout</button>}
+          {token && (
+            <button className="action-button" onClick={logout}>
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

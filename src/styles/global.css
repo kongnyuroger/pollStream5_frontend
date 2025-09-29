@@ -36,6 +36,7 @@ button {
 }
 button:hover {
     background-color: #3a75e8;
+    color: white;
 }
 input,
 select,
@@ -54,6 +55,8 @@ input:focus,
 select:focus,
 textarea:focus {
     border-color: var(--accent);
+        font-size: 16px;
+
 }
 .container {
     max-width: 1000px;

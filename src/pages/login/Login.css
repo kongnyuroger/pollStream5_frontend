@@ -26,6 +26,12 @@
   font-size: 13px;
   animation: fadeIn 0.5s ease;
 }
+
+.link.login{
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
 @media (max-width: 860px) {
   .auth-wrap {
     grid-template-columns: 1fr;
