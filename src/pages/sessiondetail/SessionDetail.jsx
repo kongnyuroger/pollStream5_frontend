@@ -4,6 +4,8 @@ import { api } from "../../api.js";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import { useSocket } from "../../hooks/useSocket.js";
 import { Link } from "react-router-dom";
+import { QRCodeCanvas } from "qrcode.react";
+
 import "./SessionDetail.css";
 
 export default function SessionDetail() {
@@ -34,6 +36,7 @@ export default function SessionDetail() {
   useEffect(() => {
     load();
   }, [id]);
+  const [showQR, setShowQR] = useState(false);
 
   useEffect(() => {
     if (!socket) return;
@@ -126,15 +129,37 @@ export default function SessionDetail() {
         <h2>Session: {session.name}</h2>
         <span className="badge">code: {session.session_code}</span>
 
-        {/* New link to participant join */}
         <Link
           to={`/participant?code=${session.session_code}`}
           className="join-link"
         >
           Invite Participants
         </Link>
+
+        {/* QR Toggle */}
+        <button className="qr-placeholder" onClick={() => setShowQR(true)}>
+          📱 Show QRCode
+        </button>
       </div>
 
+      {/* QR Modal */}
+      {showQR && (
+        <div className="qr-modal-overlay" onClick={() => setShowQR(false)}>
+          <div className="qr-modal" onClick={(e) => e.stopPropagation()}>
+            <h4>Scan to Join</h4>
+            <QRCodeCanvas
+              value={`${window.location.origin}/participant?code=${session.session_code}`}
+              size={200}
+              bgColor="#ffffff"
+              fgColor="#000000"
+              includeMargin={true}
+            />
+            <button className="close-qr" onClick={() => setShowQR(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <hr />
       <div className="create-poll">
         <h3>Create Poll</h3>
