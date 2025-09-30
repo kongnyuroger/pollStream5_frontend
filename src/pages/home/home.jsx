@@ -1,7 +1,8 @@
-import React from 'react';
-import './home.css';
-
+import React from "react";
+import "./home.css";
+import { Link, useNavigate } from "react-router-dom";
 const Home = () => {
+  const navigate = useNavigate()
   return (
     <div className="home-container">
       <header className="home-header">
@@ -10,7 +11,10 @@ const Home = () => {
       </header>
       <main className="home-main">
         <div className="home-intro">
-          <p>Welcome to PollPulse, your go-to platform for real-time polling and interactive sessions.</p>
+          <p>
+            Welcome to PollPulse, your go-to platform for real-time polling and
+            interactive sessions.
+          </p>
         </div>
         <div className="home-features">
           <div className="feature-item">
@@ -19,16 +23,29 @@ const Home = () => {
           </div>
           <div className="feature-item">
             <h3>Easy to Use</h3>
-            <p>Simple and intuitive interface for both hosts and participants.</p>
+            <p>
+              Simple and intuitive interface for both hosts and participants.
+            </p>
           </div>
           <div className="feature-item">
             <h3>Engage Your Audience</h3>
-            <p>Interactive polls, quizzes, and Q&A sessions to keep your audience engaged.</p>
+            <p>
+              Interactive polls, quizzes, and Q&A sessions to keep your audience
+              engaged.
+            </p>
           </div>
         </div>
         <div className="home-cta">
-          <a href="/host" className="cta-button">Create a Session</a>
-          <a href="/participant" className="cta-button">Join a Session</a>
+          
+          <Link className="cta-button" to={"/host"}>
+            Create a Session
+          </Link>
+          <Link
+            className="cta-button"
+            onClick={() => navigate("/participant")}
+          >
+            Join a Session
+          </Link>
         </div>
       </main>
       <footer className="home-footer">

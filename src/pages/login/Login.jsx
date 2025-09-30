@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { api } from '../../api'
 import './Login.css'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login(){
   const [email, setEmail] = useState('')
@@ -13,6 +14,8 @@ export default function Login(){
     setError(''); setLoading(TrueFalse(false))
   }
 
+  const navigate = useNavigate()
+
   // small helper to avoid typos
   function TrueFalse(v){ return v }
 
@@ -21,7 +24,7 @@ export default function Login(){
       setLoading(true)
       const data = await api('/api/host/login', { method:'POST', body:{ email, password } })
       localStorage.setItem('token', data.token)
-      window.location.assign('/host')
+      navigate("/host")
     }catch(err){
       setError(err.message)
     }finally{
@@ -46,8 +49,10 @@ export default function Login(){
         </div>
         {error && <div className="error">{error}</div>}
         <button disabled={loading}>{loading ? 'Signing in...' : 'Login'}</button>
-        <p className="link login" type="button" onClick={()=>window.location.assign('/register')}>Create an account</p>
-      </form>
+          <p className="link login" onClick={() => navigate("/register")}>
+      Create an account
+    </p>
+        </form>
     </div>
   )
 }

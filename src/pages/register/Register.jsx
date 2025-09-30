@@ -3,6 +3,7 @@ import { api } from '../../api'
 import { Link } from 'react-router-dom'
 import './Register.css'
 
+
 export default function Register(){
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -39,7 +40,7 @@ export default function Register(){
         </div>
         {error && <div className="error">{error}</div>}
         {ok && <div className="ok">{ok}</div>}
-        <p>i have an acount. <a className='link' href="/login">login</a> </p>
+        <p>i have an acount. <Link className='link' to={'/login'}>login</Link> </p>
         <button>Create account</button>
       </form>
     </div>
