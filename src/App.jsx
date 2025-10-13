@@ -10,7 +10,7 @@ import Navbar from './components/navbar/Navbar';
 
 const App = () => {
   const token = localStorage.getItem('token');
-
+  
   return (
     <div>
       <Navbar />

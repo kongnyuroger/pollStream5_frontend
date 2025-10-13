@@ -30,6 +30,12 @@ export default function HostDashboard(){
     }
   }
 
+  if(error.includes("Invalid token")){
+    localStorage.removeItem('token')
+    navigate('/login')
+  }
+
+
   return (
     <div className="card">
       <h2>Your Sessions</h2>
