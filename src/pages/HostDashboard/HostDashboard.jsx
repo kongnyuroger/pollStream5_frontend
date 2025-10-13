@@ -17,7 +17,7 @@ export default function HostDashboard(){
       setError(err.message)
     }
   }
-  useEffect(() => { load() }, [])
+  useEffect(() => { load()}, [])
 
   async function createSession(e){
     e.preventDefault()
@@ -30,7 +30,7 @@ export default function HostDashboard(){
     }
   }
 
-  if(error.includes("Invalid token")){
+  if(error.includes("Invalid token") || error.includes('No token provided')){
     localStorage.removeItem('token')
     navigate('/login')
   }

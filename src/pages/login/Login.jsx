@@ -25,6 +25,7 @@ export default function Login(){
       const data = await api('/api/host/login', { method:'POST', body:{ email, password } })
       localStorage.setItem('token', data.token)
       navigate("/host")
+      window.location.reload()
     }catch(err){
       setError(err.message)
     }finally{

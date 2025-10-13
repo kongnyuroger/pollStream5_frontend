@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { api } from "../../api.js";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import { useSocket } from "../../hooks/useSocket.js";
-import { Link } from "react-router-dom";
 import { QRCodeCanvas } from "qrcode.react";
-
 import "./SessionDetail.css";
 
 export default function SessionDetail() {
@@ -18,10 +16,11 @@ export default function SessionDetail() {
   const [error, setError] = useState("");
   const [results, setResults] = useState(null);
   const [selectedPollId, setSelectedPollId] = useState(null);
+  const [showQR, setShowQR] = useState(false);
+  const [reloading, setReloading] = useState(false);
 
   const sessionId = useMemo(() => id, [id]);
-  console.log(`session id from sessiondetail page is ${sessionId}`);
-  const { socket, connected } = useSocket(sessionId);
+  const { socket } = useSocket(sessionId);
 
   async function load() {
     try {
@@ -36,7 +35,6 @@ export default function SessionDetail() {
   useEffect(() => {
     load();
   }, [id]);
-  const [showQR, setShowQR] = useState(false);
 
   useEffect(() => {
     if (!socket) return;
@@ -114,10 +112,21 @@ export default function SessionDetail() {
     try {
       const r = await api(`/api/host/polls/${pollId}/results`);
       setResults(r.results);
-      console.log(r.results);
       setSelectedPollId(pollId);
     } catch (err) {
       setError(err.message);
+    }
+  }
+
+  async function reloadResults(pollId) {
+    try {
+      setReloading(true);
+      const r = await api(`/api/host/polls/${pollId}/results`);
+      setResults(r.results);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setReloading(false);
     }
   }
 
@@ -160,7 +169,9 @@ export default function SessionDetail() {
           </div>
         </div>
       )}
+
       <hr />
+
       <div className="create-poll">
         <h3>Create Poll</h3>
         <form className="form" onSubmit={createPoll}>
@@ -170,7 +181,7 @@ export default function SessionDetail() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               required
-              placeholder="input poll"
+              placeholder="Enter your question"
             />
           </div>
           <div>
@@ -227,9 +238,10 @@ export default function SessionDetail() {
                 <button onClick={() => close(p.id)}>Close</button>
               )}
               <button className="link" onClick={() => viewResults(p.id)}>
-                Results
+                View Results
               </button>
             </div>
+
             {/* Display results under each poll */}
             {selectedPollId === p.id && results && (
               <div className="results-card">
@@ -243,7 +255,13 @@ export default function SessionDetail() {
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => setSelectedPollId(null)}>Close</button>
+
+                <div className="results-actions">
+                  <button onClick={() => reloadResults(p.id)} disabled={reloading}>
+                    {reloading ? "Reloading..." : "Reload Results"}
+                  </button>
+                  <button onClick={() => setSelectedPollId(null)}>Close</button>
+                </div>
               </div>
             )}
           </div>

@@ -209,7 +209,10 @@
   font-size: 14px;
   margin-top: 16px;
 }
-
+.results-actions{
+  display: flex;
+  gap: 1rem;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .session-detail {
