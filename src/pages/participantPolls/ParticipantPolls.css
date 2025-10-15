@@ -2,12 +2,12 @@
   font-weight: 600;
   margin-bottom: 8px;
 }
-.options {
+/*.options {
   list-style: none;
   padding: 0;
   display: grid;
   gap: 8px;
-}
+}*/
 .error {
   color: var(--danger);
   font-size: 13px;
@@ -25,5 +25,101 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+.options {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+/* Each option container */
+.options li {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+/* Hover effect */
+.options li:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+/* Label container */
+.options label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color, #f1f1f1);
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+/* Checkbox & radio */
+.options input[type="checkbox"],
+.options input[type="radio"] {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background-color: transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Checked style */
+.options input[type="checkbox"]:checked,
+.options input[type="radio"]:checked {
+  background-color: #007aff;
+  border-color: #007aff;
+}
+
+
+
+/* Radio round shape */
+.options input[type="radio"] {
+  border-radius: 50%;
+}
+
+/* Disabled state */
+.options input:disabled,
+.options label:has(input:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Option text */
+.options label span {
+  line-height: 1.4;
+}
+
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
+  .options li {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .options li:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .options label {
+    color: #222;
+  }
+  .options input[type="checkbox"],
+  .options input[type="radio"] {
+    border-color: rgba(0, 0, 0, 0.5);
   }
 }

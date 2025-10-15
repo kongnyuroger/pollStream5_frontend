@@ -4,6 +4,8 @@ import { api } from "../../api.js";
 import StatusBadge from "../../components/StatusBadge.jsx";
 import { useSocket } from "../../hooks/useSocket.js";
 import { QRCodeCanvas } from "qrcode.react";
+import { TbReload } from "react-icons/tb";
+
 import "./SessionDetail.css";
 
 export default function SessionDetail() {
@@ -203,7 +205,7 @@ export default function SessionDetail() {
                     placeholder={`Option ${i + 1}`}
                   />
                   <button
-                    className="link"
+                    className="form-btn"
                     type="button"
                     onClick={() => removeOption(i)}
                   >
@@ -211,7 +213,7 @@ export default function SessionDetail() {
                   </button>
                 </div>
               ))}
-              <button className="link" type="button" onClick={addOption}>
+              <button className="form-btn" type="button" onClick={addOption}>
                 + Add option
               </button>
             </div>
@@ -226,18 +228,22 @@ export default function SessionDetail() {
         {polls.map((p) => (
           <div key={p.id} className="poll-card">
             <h4>{p.question}</h4>
-            <p>Type: {p.type}</p>
-            <p>
-              Status: <StatusBadge status={p.status} />
-            </p>
+            <div className="pollDes">
+              <p>Type: {p.type}</p>
+              <p>
+                Status: <StatusBadge status={p.status} />
+              </p>
+            </div>
+            
             <div className="actions">
               {p.status === "draft" && (
-                <button onClick={() => publish(p.id)}>Publish</button>
+                <button className="form-btn" onClick={() => publish(p.id)}>Publish</button>
               )}
               {p.status === "published" && (
-                <button onClick={() => close(p.id)}>Close</button>
+                <button  className="form-btn" onClick={() => close(p.id)}>Close</button>
+                
               )}
-              <button className="link" onClick={() => viewResults(p.id)}>
+              <button className="form-btn" onClick={() => viewResults(p.id)}>
                 View Results
               </button>
             </div>
@@ -258,7 +264,8 @@ export default function SessionDetail() {
 
                 <div className="results-actions">
                   <button onClick={() => reloadResults(p.id)} disabled={reloading}>
-                    {reloading ? "Reloading..." : "Reload Results"}
+                    {reloading ? "Reloading" : <TbReload />
+}
                   </button>
                   <button onClick={() => setSelectedPollId(null)}>Close</button>
                 </div>

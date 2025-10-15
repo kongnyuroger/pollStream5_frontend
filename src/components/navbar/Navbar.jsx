@@ -85,7 +85,6 @@ const Navbar = () => {
         <div className="navbar-actions">
           {!token && (
             <button
-              className="action-button"
               onClick={() => navigate("/login")}
             >
               Login
@@ -93,14 +92,13 @@ const Navbar = () => {
           )}
           {!token && (
             <button
-              className="action-button"
               onClick={() => navigate("/register")}
             >
               Register
             </button>
           )}
           {token && (
-            <button className="action-button" onClick={logout}>
+            <button  onClick={logout}>
               Logout
             </button>
           )}

@@ -76,7 +76,7 @@ export default function ParticipantPolls() {
   return (
     <div className="card">
       <h2>Session: {session?.session?.name}</h2>
-      <p className="small">Socket: {connected ? 'connected' : 'disconnected'}</p>
+      
       {error && <div className="error">{error}</div>}
       {polls.length === 0 && <p>No active polls yet. Please wait…</p>}
       <div className="row">
