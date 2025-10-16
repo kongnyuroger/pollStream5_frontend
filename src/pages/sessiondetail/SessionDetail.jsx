@@ -110,6 +110,15 @@ export default function SessionDetail() {
     }
   }
 
+  async function removePoll(pollId) {
+    try {
+      await api(`/api/host/polls/${pollId}`, { method: "DELETE" });
+      await load();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
   async function viewResults(pollId) {
     try {
       const r = await api(`/api/host/polls/${pollId}/results`);
@@ -234,17 +243,35 @@ export default function SessionDetail() {
                 Status: <StatusBadge status={p.status} />
               </p>
             </div>
-            
+
             <div className="actions">
               {p.status === "draft" && (
-                <button className="form-btn" onClick={() => publish(p.id)}>Publish</button>
+                <button className="form-btn" onClick={() => publish(p.id)}>
+                  Publish
+                </button>
               )}
+
               {p.status === "published" && (
-                <button  className="form-btn" onClick={() => close(p.id)}>Close</button>
-                
+                <button className="form-btn" onClick={() => close(p.id)}>
+                  Close
+                </button>
               )}
+
+              {p.status === "closed" && (
+                <button className="form-btn" onClick={() => publish(p.id)}>
+                  Republish
+                </button>
+              )}
+
               <button className="form-btn" onClick={() => viewResults(p.id)}>
                 View Results
+              </button>
+
+              <button
+                className="form-btn danger"
+                onClick={() => removePoll(p.id)}
+              >
+                Remove
               </button>
             </div>
 
@@ -263,9 +290,11 @@ export default function SessionDetail() {
                 </ul>
 
                 <div className="results-actions">
-                  <button onClick={() => reloadResults(p.id)} disabled={reloading}>
-                    {reloading ? "Reloading" : <TbReload />
-}
+                  <button
+                    onClick={() => reloadResults(p.id)}
+                    disabled={reloading}
+                  >
+                    {reloading ? "Reloading" : <TbReload />}
                   </button>
                   <button onClick={() => setSelectedPollId(null)}>Close</button>
                 </div>
