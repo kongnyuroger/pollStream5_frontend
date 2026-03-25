@@ -31,3 +31,5 @@ DEPLOYED LINK https://pollpulse5.netlify.app/
 - Socket.IO is connected at `VITE_API_URL` and joins `session-<id>` rooms (backend emits `pollPublished` and `newResponse` events). This UI listens for `pollPublished` on both host and participant views and auto-updates the list.
 - Each page/component has its own `.jsx` and `.css` file as requested.
 - The login/register layout mirrors a clean panel style similar to the provided screenshots (dark UI, split form). Tweak `src/pages/Login.css` to match your exact design.
+
+author: Kongnyu Roger
