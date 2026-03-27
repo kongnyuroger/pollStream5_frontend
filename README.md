@@ -32,4 +32,4 @@ DEPLOYED LINK https://pollpulse5.netlify.app/
 - Each page/component has its own `.jsx` and `.css` file as requested.
 - The login/register layout mirrors a clean panel style similar to the provided screenshots (dark UI, split form). Tweak `src/pages/Login.css` to match your exact design.
 
-author: Kongnyu Roger
+## author: Kongnyu Roger
